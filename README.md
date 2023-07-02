@@ -5,17 +5,18 @@ Pulse is a comprehensive post-processing pipeline designed to enhance the visual
 ## ToDo:
 
 - [ ] FSR 2.0
-- [x] Color Adjustment */Will Be Added*
-- [x] Chromatic Aberration */Will Be Added*
-- [x] Tonemapping */Will Be Added*
+- [x] Color Adjustment `Will Be Added`
+- [x] Chromatic Aberration `Will Be Added`
+- [x] Tonemapping `Will Be Added`
 - [ ] Depth of Field
 - [ ] Bloom
-- [ ] Film Grain
-- [ ] White Balance **/Doing Now**
-- [ ] Vignette **/Doing Now**
+- [X] Film Grain `Will Be Added`
+- [X] White Balance `Will Be Added`
+- [X] Vignette `Will Be Added`
 - [ ] Lens Distortion
 - [ ] Motion Blur
-- [ ] Gamma Correction **/Doing Now**
+- [X] Gamma Correction `Will Be Added`
+- [ ] LUTs
 
 Less priority:
 - [ ] Sharpness
@@ -23,5 +24,14 @@ Less priority:
 - [ ] Cartoon Style Effects
 - [ ] Blend Modes
 - [ ] Blur
+- [ ] Lens Flare
 
-Newly made effects will be added to this repository soon. I can't promise it will be regular and organised.
+Under Consideration:
+- [ ] Blob Shadows
+- [ ] Antialiasing
+- [ ] SSSR - [https://github.com/GPUOpen-Effects/FidelityFX-SSSR](https://github.com/GPUOpen-Effects/FidelityFX-SSSR)
+- [ ] CACAO - [CACAO - https://github.com/GPUOpen-Effects/FidelityFX-CACAO](https://github.com/GPUOpen-Effects/FidelityFX-CACAO)
+
+* Newly made effects (`Will Be Added` tagged ones) will be added to this repository soon. I can't promise it will be regular and organised.
+* Yes, Unity has some of the Post Processing effetcs. But those are Renderer Feature based effects.
+* References for scripts and documentation will be added.
