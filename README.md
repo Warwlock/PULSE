@@ -5,12 +5,16 @@ Pulse is a comprehensive post-processing pipeline designed to enhance the visual
 **Note:** Only tested on Windows platform in Unity Editor (2022.3.4f1). I will test on mobile platform (android) soon.
 This repository is part of [C.A.T.S. - Cutting-edge Adaptive Technology Stack](https://github.com/Warwlock/C.A.T.S).
 
+**Note:** This tool is still in development, there can be code errors and performance drops.
+
 ## Installation
 
 Just put `Pulse` folder into `Assets` directory in your Unity project.
 
 ## Usage
 
+* First completely disable default pos processing. You can disable it from `Universal Render Data` asset.
+* Also in any case disable it in all cameras.
 * Go to your `Universal Render Data` asset and add `Pulse Post Processing` Render Feature.
 * Create an empty game object and add `Pulse Volume` component.
 * Now you can add any effect you want.
