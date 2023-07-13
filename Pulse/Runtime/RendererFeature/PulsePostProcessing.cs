@@ -13,9 +13,6 @@ public class PulsePostProcessing : ScriptableRendererFeature
     RTHandle firstTempTex;
     RTHandle secondTempTex;
     RTHandle finalTempTex;
-    RTHandle maskTexture;
-
-    public PulseMultipleCamera pmc;
 
     public override void Create()
     {
@@ -42,7 +39,6 @@ public class PulsePostProcessing : ScriptableRendererFeature
         RenderingUtils.ReAllocateIfNeeded(ref firstTempTex, colorCopyDescriptor, name: "_FirstTempTexture");
         RenderingUtils.ReAllocateIfNeeded(ref secondTempTex, colorCopyDescriptor, name: "_SecondTempTexture");
         RenderingUtils.ReAllocateIfNeeded(ref finalTempTex, colorCopyDescriptor, name: "_FinalTempTexture");
-        RenderingUtils.ReAllocateIfNeeded(ref maskTexture, colorCopyDescriptor, name: "_MaskTexture");
 
         PulseVolume[] pulseVolumes = FindObjectsOfType(typeof(PulseVolume)) as PulseVolume[];
 
@@ -51,7 +47,7 @@ public class PulsePostProcessing : ScriptableRendererFeature
             pulseVolumes[i].OnTextureInitializeEffects(renderingData.cameraData);
         }
 
-        renderPass.Setup(firstTempTex, secondTempTex, finalTempTex, maskTexture, pulseVolumes, renderingData.cameraData, pmc);
+        renderPass.Setup(firstTempTex, secondTempTex, finalTempTex, pulseVolumes, renderingData.cameraData);
 
         //base.SetupRenderPasses(renderer, renderingData);
     }
@@ -61,7 +57,6 @@ public class PulsePostProcessing : ScriptableRendererFeature
         firstTempTex?.Release();
         secondTempTex?.Release();
         finalTempTex?.Release();
-        maskTexture?.Release();
 
         PulseVolume[] pulseVolumes = FindObjectsOfType(typeof(PulseVolume)) as PulseVolume[];
         for(int i = 0; i < pulseVolumes.Length; i++)
@@ -79,11 +74,8 @@ public class PulsePostProcessing : ScriptableRendererFeature
         private RTHandle firstTempTex;
         private RTHandle secondTempTex;
         private RTHandle finalTempTex;
-        private RTHandle maskTexture;
 
         PulseVolume[] pulseVolumes;
-
-        PulseMultipleCamera pmc;
 
         // This method is called before executing the render pass.
         // It can be used to configure render targets and their clear state. Also to create temporary render target textures.
@@ -95,8 +87,8 @@ public class PulsePostProcessing : ScriptableRendererFeature
             
         }
 
-        public void Setup(RTHandle firstTempTex, RTHandle secondTempTex, RTHandle finalTempTex, RTHandle maskTexture,
-                            PulseVolume[] pulseVolumes, CameraData cameraData, PulseMultipleCamera pmc)
+        public void Setup(RTHandle firstTempTex, RTHandle secondTempTex, RTHandle finalTempTex,
+                            PulseVolume[] pulseVolumes, CameraData cameraData)
         {
             this.pulseVolumes = pulseVolumes;
 
@@ -109,9 +101,6 @@ public class PulsePostProcessing : ScriptableRendererFeature
             this.firstTempTex = firstTempTex;
             this.secondTempTex = secondTempTex;
             this.finalTempTex = finalTempTex;
-            this.maskTexture = maskTexture;
-
-            this.pmc = pmc;
         }
 
 
@@ -151,30 +140,7 @@ public class PulsePostProcessing : ScriptableRendererFeature
 
             RTHandle currentTarget = renderingData.cameraData.renderer.cameraColorTargetHandle;
 
-            //material.SetFloat("_BlendDistance", 1);
             materials = new Material[pulseVolumes.Length];
-
-            /*for(int i = 0; i < pulseVolumes.Length; i++)
-            {
-                Blitter.BlitCameraTexture(commandBuffer, currentTarget, finalTempTex);
-                Blitter.BlitCameraTexture(commandBuffer, currentTarget, firstTempTex);
-                materials[i] = new Material(Shader.Find("Hidden/_Pulse_DirectBlit"));
-                materials[i].SetTexture("_BlitTexture", firstTempTex);
-                materials[i].SetTexture("_UnrenderedTexture", finalTempTex);
-            }*/
-
-
-            /*Material tempMat = null;
-            if (pmc != null)
-            {
-                tempMat = pmc.material;
-
-                Blitter.BlitCameraTexture(commandBuffer, renderingData.cameraData.renderer.cameraColorTargetHandle, finalTempTex);
-                //tempMat = new Material(Shader.Find("Hidden/_Pulse_MultipleCamera"));
-                tempMat.SetTexture("_BlitTexture", finalTempTex);
-
-                commandBuffer.Blit(finalTempTex, maskTexture, tempMat, tempMat.FindPass("Pulse_CameraMaskColor_Pass"));
-            }*/
 
             bool useSecondTetxure = false;
             for (int i = 0; i < pulseVolumes.Length; i++)
@@ -199,21 +165,11 @@ public class PulsePostProcessing : ScriptableRendererFeature
                 materials[i].SetTexture("_UnrenderedTexture", finalTempTex);
                 materials[i].SetTexture("_BlitTexture", pulseVolumes[i].EffectNumber() ? firstTempTex : secondTempTex);
 
-                /*if (pmc != null)
-                    tempMat.SetTexture("_BlitTexture", pulseVolumes[i].EffectNumber() ? firstTempTex : secondTempTex);*/
-
                 pulseVolumes[i].OnRenderEffects(renderingData.cameraData, commandBuffer, ref firstTempTex, ref secondTempTex, materials[i]);
 
                 CoreUtils.SetRenderTarget(commandBuffer, renderingData.cameraData.renderer.cameraColorTargetHandle);
                 CoreUtils.DrawFullScreen(commandBuffer, materials[i]);
             }
-
-            /*if (pmc != null)
-            {
-                tempMat.SetTexture("_MaskTexture", maskTexture);
-                CoreUtils.SetRenderTarget(commandBuffer, renderingData.cameraData.renderer.cameraColorTargetHandle);
-                CoreUtils.DrawFullScreen(commandBuffer, tempMat, shaderPassId: tempMat.FindPass("Pulse_CameraMainColor_Pass"));
-            }*/
 
             if (useSecondTetxure)
             {
