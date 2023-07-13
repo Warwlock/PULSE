@@ -1,4 +1,3 @@
-using System.Drawing.Drawing2D;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

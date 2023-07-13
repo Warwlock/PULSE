@@ -164,7 +164,7 @@ Under Consideration:
 * Yes, Unity has some of the Post Processing effetcs. But those are Renderer Feature based effects.
 * References for scripts and documentation will be added.
 
-## Referances
+## References
 
 * https://www.youtube.com/@Acerola_t //Thanks for Youtube tutorials
 * https://github.com/GarrettGunnell/Post-Processing
