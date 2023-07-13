@@ -130,6 +130,9 @@ Shader "Hidden/_MyCustomGammaMaterial" // Your effect material name
 * Duplicating volumes also duplicates same effects. That means if you change an effect in duplicated volume, it will change effect in original volume too. That's why all effects must removed in duplicated volume before changing values.
 * In HDR mode, overlay camera uses high brightness values to create overlay camera mask. If you use too bright light source (intensity higher than around 300), it will start to mask bright areas.
 
+Overlay problem with Chromatic Aberration:
+![](https://github.com/Warwlock/PULSE/blob/main/Images/overlayProblem.png)
+
 ## Done:
 
 - [X] Color Adjustment
