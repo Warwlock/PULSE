@@ -3,39 +3,42 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PulseWhiteBalance : IPulseEffect
+namespace CATS.Pulse
 {
-    [Range(-1, 1)] public float Temperature = 0f;
-    [Range(-1, 1)] public float Tint = 0f;
-    [Space]
-    public bool useHalfPrecision;
-
-    Material material;
-    
-    private void OnEnable()
+    public class PulseWhiteBalance : IPulseEffect
     {
-        name = "PULSE Effects/White Balance";
-    }
+        [Range(-1, 1)] public float Temperature = 0f;
+        [Range(-1, 1)] public float Tint = 0f;
+        [Space]
+        public bool useHalfPrecision;
 
-    public override void OnSetup()
-    {
-        material = new Material(Shader.Find("Hidden/_Pulse_WhiteBalance"));
-    }
+        Material material;
 
-    public override void OnRender(ref RTHandle src, ref RTHandle dst)
-    {
-        material.SetTexture("_BlitTexture", src);
-
-        material.SetFloat("_Temp", Temperature);
-        material.SetFloat("_Tint", Tint);
-
-        if (useHalfPrecision)
+        private void OnEnable()
         {
-            Blit(ref src, ref dst, material, material.FindPass("Pulse_WhiteBalanceHalf_Pass"));
+            name = "PULSE Effects/White Balance";
         }
-        else
+
+        public override void OnSetup()
         {
-            Blit(ref src, ref dst, material, material.FindPass("Pulse_WhiteBalance_Pass"));
+            material = new Material(Shader.Find("Hidden/_Pulse_WhiteBalance"));
+        }
+
+        public override void OnRender(ref RTHandle src, ref RTHandle dst)
+        {
+            material.SetTexture("_BlitTexture", src);
+
+            material.SetFloat("_Temp", Temperature);
+            material.SetFloat("_Tint", Tint);
+
+            if (useHalfPrecision)
+            {
+                Blit(ref src, ref dst, material, material.FindPass("Pulse_WhiteBalanceHalf_Pass"));
+            }
+            else
+            {
+                Blit(ref src, ref dst, material, material.FindPass("Pulse_WhiteBalance_Pass"));
+            }
         }
     }
 }

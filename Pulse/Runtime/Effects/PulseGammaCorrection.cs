@@ -4,28 +4,31 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PulseGammaCorrection : IPulseEffect
+namespace CATS.Pulse
 {
-    public float GammaValue = 1;
-
-    Material material;
-    
-    private void OnEnable()
+    public class PulseGammaCorrection : IPulseEffect
     {
-        name = "PULSE Effects/Gamma Correction";
-    }
+        public float GammaValue = 1;
 
-    public override void OnSetup()
-    {
-        material = new Material(Shader.Find("Hidden/_Pulse_GammaCorrection"));
-    }
+        Material material;
 
-    public override void OnRender(ref RTHandle src, ref RTHandle dst)
-    {
-        material.SetTexture("_BlitTexture", src);
+        private void OnEnable()
+        {
+            name = "PULSE Effects/Gamma Correction";
+        }
 
-        material.SetFloat("_Gamma", GammaValue);
+        public override void OnSetup()
+        {
+            material = new Material(Shader.Find("Hidden/_Pulse_GammaCorrection"));
+        }
 
-        Blit(ref src, ref dst, material);
+        public override void OnRender(ref RTHandle src, ref RTHandle dst)
+        {
+            material.SetTexture("_BlitTexture", src);
+
+            material.SetFloat("_Gamma", GammaValue);
+
+            Blit(ref src, ref dst, material);
+        }
     }
 }

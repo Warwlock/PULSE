@@ -2,32 +2,36 @@ using System.Drawing.Drawing2D;
 using UnityEditor.Rendering.Universal;
 using UnityEditor;
 using UnityEngine;
+using CATS.Pulse;
 
-[CustomEditor(typeof(PulseChromaticAberration))]
-public class PulseChromaticAberrationEditor : Editor
+namespace CATS.PulseEditor
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(PulseChromaticAberration))]
+    public class PulseChromaticAberrationEditor : Editor
     {
-        PulseChromaticAberration obj = serializedObject.targetObject as PulseChromaticAberration;
-
-        EditorGUILayout.PropertyField(serializedObject.FindProperty("ChromaticAberrationType"));
-        EditorGUILayout.Space();
-
-        if (obj.ChromaticAberrationType == PulseChromaticAberration.ChromaticAberrationTypes.Basic)
+        public override void OnInspectorGUI()
         {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("intensity"));
-        }
+            PulseChromaticAberration obj = serializedObject.targetObject as PulseChromaticAberration;
 
-        if (obj.ChromaticAberrationType == PulseChromaticAberration.ChromaticAberrationTypes.Advanced)
-        {
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("intensity"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("hardness"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("focalOffset"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("radius"));
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("channelOffsets"));
-        }
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("ChromaticAberrationType"));
+            EditorGUILayout.Space();
 
-        serializedObject.ApplyModifiedProperties();
-        //base.OnInspectorGUI();
+            if (obj.ChromaticAberrationType == PulseChromaticAberration.ChromaticAberrationTypes.Basic)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("intensity"));
+            }
+
+            if (obj.ChromaticAberrationType == PulseChromaticAberration.ChromaticAberrationTypes.Advanced)
+            {
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("intensity"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("hardness"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("focalOffset"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("radius"));
+                EditorGUILayout.PropertyField(serializedObject.FindProperty("channelOffsets"));
+            }
+
+            serializedObject.ApplyModifiedProperties();
+            //base.OnInspectorGUI();
+        }
     }
 }

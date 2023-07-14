@@ -1,0 +1,20 @@
+{
+    "name": "com.Warwlock.CATS.Pulse.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:c579267770062bf448e75eb160330b7f",
+        "GUID:3eae0364be2026648bf74846acb8a731",
+        "GUID:56e0a211264460d4dab4c8b330cdf93d"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

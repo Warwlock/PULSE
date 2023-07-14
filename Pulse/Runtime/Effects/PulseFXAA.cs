@@ -3,27 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PulseFXAA : IPulseEffect
+namespace CATS.Pulse
 {
-    Material material;
-    
-    private void OnEnable()
+    public class PulseFXAA : IPulseEffect
     {
-        name = "PULSE Effects/FXAA";
-    }
+        Material material;
 
-    public override void OnSetup()
-    {
-        material = new Material(Shader.Find("Hidden/_Pulse_PulseFXAA"));
-    }
+        private void OnEnable()
+        {
+            name = "PULSE Effects/FXAA";
+        }
 
-    public override void OnRender(ref RTHandle src, ref RTHandle dst)
-    {
-        material.SetTexture("_BlitTexture", src);
+        public override void OnSetup()
+        {
+            material = new Material(Shader.Find("Hidden/_Pulse_PulseFXAA"));
+        }
 
-        Vector4 texelSize = new Vector4(1f / src.rt.width, 1f / src.rt.height, src.rt.width, src.rt.height);
-        material.SetVector("_Blit_TexelSize", texelSize);
+        public override void OnRender(ref RTHandle src, ref RTHandle dst)
+        {
+            material.SetTexture("_BlitTexture", src);
 
-        Blit(ref src, ref dst, material);
+            Vector4 texelSize = new Vector4(1f / src.rt.width, 1f / src.rt.height, src.rt.width, src.rt.height);
+            material.SetVector("_Blit_TexelSize", texelSize);
+
+            Blit(ref src, ref dst, material);
+        }
     }
 }

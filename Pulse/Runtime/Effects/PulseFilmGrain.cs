@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PulseFilmGrain : IPulseEffect
+namespace CATS.Pulse
 {
-    [Range(0, 1)] public float Intensity = 0.5f;
-    [Range(0, 1)] public float ShadowIntensity = 0.2f;
-
-    Material material;
-    
-    private void OnEnable()
+    public class PulseFilmGrain : IPulseEffect
     {
-        name = "PULSE Effects/Film Grain";
-    }
+        [Range(0, 1)] public float Intensity = 0.5f;
+        [Range(0, 1)] public float ShadowIntensity = 0.2f;
 
-    public override void OnSetup()
-    {
-        material = new Material(Shader.Find("Hidden/_Pulse_FilmGrain"));
-    }
+        Material material;
 
-    public override void OnRender(ref RTHandle src, ref RTHandle dst)
-    {
-        material.SetTexture("_BlitTexture", src);
+        private void OnEnable()
+        {
+            name = "PULSE Effects/Film Grain";
+        }
 
-        material.SetFloat("_Ibright", Intensity / 4);
-        material.SetFloat("_Ishadow", ShadowIntensity / 40);
+        public override void OnSetup()
+        {
+            material = new Material(Shader.Find("Hidden/_Pulse_FilmGrain"));
+        }
 
-        Blit(ref src, ref dst, material);
+        public override void OnRender(ref RTHandle src, ref RTHandle dst)
+        {
+            material.SetTexture("_BlitTexture", src);
+
+            material.SetFloat("_Ibright", Intensity / 4);
+            material.SetFloat("_Ishadow", ShadowIntensity / 40);
+
+            Blit(ref src, ref dst, material);
+        }
     }
 }
