@@ -24,8 +24,8 @@ Shader "Hidden/_Pulse_FilmGrain"
 
             half noise = 0;
             half noiseShadow = 0;
-            white_noise_2d_Half(input.texcoord.xy * _Time.y, noise);
-            white_noise_2d_Half(input.texcoord.xy * _Time.y + 1000, noiseShadow);
+            white_noise_2d(input.texcoord.xy * _SinTime.x, noise);
+            white_noise_2d(input.texcoord.xy * _SinTime.y, noiseShadow);
             noise = noise * 2 - 1;
             noiseShadow = noiseShadow * 2 - 1;
 
