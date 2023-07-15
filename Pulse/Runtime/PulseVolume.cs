@@ -47,20 +47,17 @@ namespace CATS.Pulse
 
         public void Add(Type effectType)
         {
-            Undo.RecordObject(this, "Add Pulse Effect");
             IPulseEffect effect = ScriptableObject.CreateInstance(effectType) as IPulseEffect;
             EffectList.Add(effect);
         }
 
         public void Remove(IPulseEffect effect)
         {
-            Undo.RecordObject(this, "Remove Pulse Effect");
             EffectList.Remove(effect);
         }
 
         public void MoveUp(int index)
         {
-            Undo.RecordObject(this, "Move Up Pulse Effect");
             if (index > 0 && index < EffectList.Count)
             {
                 var temp = EffectList[index - 1];
@@ -71,7 +68,6 @@ namespace CATS.Pulse
 
         public void MoveDown(int index)
         {
-            Undo.RecordObject(this, "Move Down Pulse Effect");
             if (index >= 0 && index < EffectList.Count - 1)
             {
                 var temp = EffectList[index + 1];

@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEditor;
-using UnityEditor.Rendering;
-using System.Linq;
 using CATS.Pulse;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEditor;
+using UnityEditor.Rendering;
+using UnityEngine;
 
 namespace CATS.PulseEditor
 {
@@ -94,11 +92,11 @@ namespace CATS.PulseEditor
             PulseVolume pv = target as PulseVolume;
             GenericMenu menu = new GenericMenu();
 
-            menu.AddItem(EditorGUIUtility.TrTextContent("Remove"), false, () => pv.Remove(effect));
+            menu.AddItem(EditorGUIUtility.TrTextContent("Remove"), false, () => { Undo.RecordObject(pv, "Remove Pulse Effect"); pv.Remove(effect); });
             menu.AddSeparator("");
 
-            menu.AddItem(EditorGUIUtility.TrTextContent("Move Up"), false, () => pv.MoveUp(index));
-            menu.AddItem(EditorGUIUtility.TrTextContent("Move Down"), false, () => pv.MoveDown(index));
+            menu.AddItem(EditorGUIUtility.TrTextContent("Move Up"), false, () => { Undo.RecordObject(pv, "Move Up Pulse Effect"); pv.MoveUp(index); });
+            menu.AddItem(EditorGUIUtility.TrTextContent("Move Down"), false, () => { Undo.RecordObject(pv, "Move Down Pulse Effect"); pv.MoveDown(index); });
 
             menu.DropDown(new Rect(position, Vector2.zero));
         }

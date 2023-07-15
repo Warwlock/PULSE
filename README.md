@@ -2,9 +2,9 @@
 
 Pulse is a comprehensive post-processing pipeline designed to enhance the visual quality of rendered images. It offers a wide range of customizable effects and filters to apply to the final rendered frames. Pulse enables developers to add depth of field, motion blur, color grading, tone mapping, and many other post-processing effects to achieve the desired aesthetic for their projects. Also you can create you custom post-processing effects with shaders (Probably it will be the Unity's Full Screen Renderer Feature).
 
-**Note:** Only tested on Windows platform in Unity Editor (2022.3.4f1). I will test on mobile platform (android) soon.
-This repository is part of [C.A.T.S. - Cutting-edge Adaptive Technology Stack](https://github.com/Warwlock/C.A.T.S).
+* This repository is part of [C.A.T.S. - Cutting-edge Adaptive Technology Stack](https://github.com/Warwlock/C.A.T.S).
 
+**Note:** Only tested on Windows platform in Unity Editor (2022.3.4f1). I will test on mobile platform (android) soon.
 **Note:** This tool is still in development, there can be code errors and performance drops.
 
 ## Installation
@@ -184,3 +184,5 @@ Under Consideration:
 * https://www.shadertoy.com/view/stlSzf //FXAA
 * http://blog.simonrodriguez.fr/articles/2016/07/implementing_fxaa.html
 * https://www.cyanilux.com/tutorials/custom-renderer-features/
+* https://www.shadertoy.com/view/XlGcRh //Hash functions
+* https://www.shadertoy.com/view/4djSRW //Hash without sine

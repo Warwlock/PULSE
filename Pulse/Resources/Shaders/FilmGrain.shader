@@ -22,10 +22,10 @@ Shader "Hidden/_Pulse_FilmGrain"
         {
             half4 col = SAMPLE_TEXTURE2D_X(_BlitTexture, _sampler_Linear_Clamp, input.texcoord);
 
-            half noise;
-            half noiseShadow;
-            white_noise_2d_Half(input.texcoord.xy * _Time.x, noise);
-            white_noise_2d_Half(input.texcoord.xy * _Time.y, noiseShadow);
+            half noise = 0;
+            half noiseShadow = 0;
+            white_noise_2d_Half(input.texcoord.xy * _Time.y, noise);
+            white_noise_2d_Half(input.texcoord.xy * _Time.y + 1000, noiseShadow);
             noise = noise * 2 - 1;
             noiseShadow = noiseShadow * 2 - 1;
 

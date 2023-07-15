@@ -90,6 +90,7 @@ namespace CATS.PulseEditor
         {
             if (element is EffectElement)
             {
+                Undo.RecordObject(pv, "Add Pulse Effect");
                 pv.Add((element as EffectElement).type);
                 return true;
             }
